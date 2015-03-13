@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bungalow</title>
+    <base href="http://play.bungalowapp.com">
+    <link rel="stylesheet" href="stylesheets/boxmodel.css">
+    <link rel="stylesheet" href="themes/spotify/css/dark.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="import" href="components/info-bar.html">
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="scripts/cache-polyfill.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+  </head>
+  <body>
+    <header>
+        <a class="btn"><i class="fa fa-arrow-left"></i></a>
+        <a class="btn"><i class="fa fa-arrow-right"></i></a>
+        <form onsubmit="bungalow.search(event);return false;">
+            <input id="search" type="search">
+            <div style="flex-grow: 2"></div>
+        </form>
+
+    </header>
+    <info-bar style="display: none"><title>Test</title></info-bar>
+    <main>
+        <aside>
+            <ul class="menu">
+                <li data-uri="bungalow:start"><i class="fa fa-circle"></i> Start</li>
+                <li data-uri="bungalow:foot:care"><i class="fa fa-bug"></i> Foot care</li>
+            </ul>
+        </aside>
+        <div class="viewstack" id="viewstack">
+        </div>
+    </main>
+    <footer></footer>
+    <script src="scripts/bungalow.js"></script>
+  </body>
+</html>

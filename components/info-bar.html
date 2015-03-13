@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="info-bar">
+
+    <template>
+        <style>
+            @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+            @import url('../themes/spotify/css/dark.css');
+            :host {
+                background-color: #770000;
+                color: #ffeeee;
+                height: 20pt;
+                padding:0pt;
+                line-height: 5pt;
+                font-size: 10pt;
+            }    
+        </style>
+        <div id="host">
+            <p><i class="fa fa-flag"></i> <content select="description"></content></p>
+        </div>                
+    </template>
+    <script>
+    Polymer({
+
+    });
+    </script>
+</polymer-element>
