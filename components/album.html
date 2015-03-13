@@ -1,5 +1,6 @@
+
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<polymer-element name="bungalow-profile-header" attributes="theme,following,icon,name,image,type,constructor,followers">
+<polymer-element name="bungalow-album" attributes="uri">
 
     <template>
         <style>
@@ -21,19 +22,13 @@
                         <small>{{type}}</small>
                         <h1>{{name}}</h1>
                         <div class="toolbar">
-                            <a class="btn btn-primary"><i class="fa fa-play"></i> Play</a>
-                            <a class="btn btn-default"><i class="fa fa-share"></i> Share</a>
+                            <a class="btn btn-primary"><i class="fa fa-play"></i> Save</a>
                         </div>
                         
                     </td>
-                    <td valign="bottom"><div style="float: right; text-align: right">
-                            <small>Followers:<br>
-                            {{followers}}<br>
-                            <small>Following:<br>
-                            {{following}}</small>
-                        <div></td>
                 </tr>
             </table>
+    
         </div>
                 
     </template>
