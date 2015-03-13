@@ -1,4 +1,5 @@
 @brand-primary: #84bd00;
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200italic");
 header, aside, footer {
     background-color: #222326;
 }
@@ -114,6 +115,16 @@ hr {
     font-size: 8pt;
     color: #666;
 }
+h1 {
+                font-size: 20px;
+                line-height: 5pt;
+            }
+            small {
+                text-transform: uppercase;
+                font-size: 8pt;
+            }
+bungalow-profile-header h1 {
+}
 .table {
     border-collapse: collapse;
 }
@@ -129,4 +140,32 @@ hr {
 }
 .table td {
     padding: 4pt;
+}
+
+.profile-image {
+    background-color: #444;
+    width: 128px;
+    height: 128px;
+    border-radius: 1000px;
+    overflow: hidden;
+    background-size: cover;
+}
+h1 {
+    font-family: "Source Sans Pro";
+    font-weight: 200;
+    color: #fafafa;
+}
+.bungalow-tab-bar {
+    border-bottom: 1px solid #222;
+    height: 15pt;
+}
+.bungalow-tab {
+    height: 15pt;
+    border-bottom: 3px solid transparent;
+}
+.bungalow-tab:hover * {
+    color: white;
+}
+.bungalow-tab-active {
+    border-bottom: 3px solid @brand-primary;
 }

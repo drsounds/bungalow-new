@@ -11,6 +11,10 @@ Bungalow.prototype.navigate = function (uri) {
         this.loadView('start', arguments);
     } else if (uri.match(/^bungalow:foot:care/)) {
         this.loadView('fungi', arguments);
+    } else if (uri.match(/^bungalow:user:(.*)/)) {
+        this.loadView('user', arguments);
+    } else if (uri.match(/^bungalow:artist:(.*)/)) {
+        this.loadView('artist', arguments);
     } else {
         alert("View not found");
         return;
@@ -20,6 +24,17 @@ Bungalow.prototype.navigate = function (uri) {
     var viewUrl = uri.substr((REALM + ':').length).replace(':', '/');
     window.history.pushState({'action': 'navigate', 'uri': uri}, 'View', '/' + viewUrl);
 }
+
+window.addEventListener('message', function (event) {
+    console.log(event.data);
+    if ('uri' in event.data) {
+        if (event.data.action === 'navigate') {
+            if (event.data.uri.match(/#(.*)/g)) {
+                window.location.hash = event.data.uri;
+            }
+        }
+    }
+});
 
 window.onload = function () {
     var path = window.location.pathname;
