@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<polymer-element name="bungalow-header" attributes="icon,type,constructor">
+<polymer-element name="bungalow-header" attributes="icon,type,constructor,followers">
 
     <template>
         <style>
@@ -28,6 +28,9 @@
                         <tr>
                             <td valign="bottom">
                                 <div class="toolbar"><a class="btn btn-default btn-primary"><i class="fa fa-play"></i> Play</a> <a class="btn btn-default">Share</a></div>
+                                <div style="float: right; text-align: right">
+                                    <small>Followers:<br> {{followers}}</small>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -41,7 +44,8 @@
     </template>
     <script>
     Polymer({
-        icon: 'cube'
+        icon: 'cube',
+        followers: '0'
     });
     </script>
 </polymer-element>
