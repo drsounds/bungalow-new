@@ -1,5 +1,5 @@
 var Bungalow = function () {
-
+    this.music = new SpotifyResolver();
 };
 
 var REALM = 'bungalow';
@@ -11,18 +11,22 @@ Bungalow.prototype.navigate = function (uri, noHistory) {
     if (!section) {
         section = "overview";
     }
+    var view = parts[1];
     var arguments = parts.slice(2);
 
     if (uri.match(/^bungalow:start/)) {
         this.loadView('start', arguments, section);
-    } else if (uri.match(/^bungalow:foot:care/)) {
-        this.loadView('fungi', arguments, section);
+    } else if (uri.match(/^bungalow:foot/)) {
+        this.loadView('foot', arguments, section);
     } else if (uri.match(/^bungalow:user:(.*)/)) {
         this.loadView('user', arguments, section);
+    } else if (uri.match(/^bungalow:job:(.*)/)) {
+        this.loadView('job', arguments, section);
     } else if (uri.match(/^bungalow:artist:(.*)/)) {
         this.loadView('artist', arguments, section);
     } else {
-        alert("View not found");
+        
+        this.loadView(view, arguments, section);
         return;
     }
     $('.menu li').removeClass('active');
@@ -40,6 +44,63 @@ window.addEventListener('message', function (event) {
                 window.location.hash = event.data.uri;
             }
         }
+
+    }
+    if (event.data.action === 'cosmos') {
+        var method = event.data.method;
+        var uri = event.data.uri;
+        var payload = event.data.uri;
+        var requestId = event.data.requestId;
+        console.log("URI", uri);
+        console.log("Request id", requestId);
+        if (uri.match(/^cosmos\:\/\/v1\/album\/(.*)\/tracks/)) {
+            alert(uri);
+            var parts = uri.split(/^cosmos\:\/\/v1\/album\/(.*)\/tracks/);
+    
+            bungalow.music.getAlbumTracks(parts[1]).then(function (data) {
+                console.log("DATA", data);
+                event.source.postMessage({
+                    'action': 'cosmosReply',
+                    'requestId': requestId,
+                    'object': data
+                }, '*');
+            });
+
+        } else if (uri.match(/^cosmos\:\/\/v1\/album\/(.*)/)) {
+            var parts = uri.split(/^cosmos\:\/\/v1\/album\/(.*)/);
+            console.log(parts);
+            bungalow.music.getAlbum(parts[1]).then(function (data) {
+                console.log("DATA", data);
+                event.source.postMessage({
+                    'action': 'cosmosReply',
+                    'requestId': requestId,
+                    'object': data
+                }, '*');
+            });
+
+        } else if (uri.match(/^cosmos\:\/\/v1\/artist\/(.*)\/albums/)) {
+            var parts = uri.split(/^cosmos\:\/\/v1\/artist\/(.*)\/albums/);
+
+            bungalow.music.getAlbumsByArtist(parts[0]).then(function (data) {
+                event.source.postMessage({
+                    'action': 'cosmosReply',
+                    'requestId': requestId,
+                    'object': data
+                }, '*');
+            });
+
+        } else if (uri.match(/^cosmos\:\/\/v1\/artist\/(.*)/)) {
+            var parts = uri.split(/^cosmos\:\/\/v1\/artist\/(.*)/);
+
+            bungalow.music.getArtist(parts[0]).then(function (data) {
+                event.source.postMessage({
+                    'action': 'cosmosReply',
+                    'requestId': requestId,
+                    'object': data
+                }, '*');
+            });
+
+        } 
     }
 });
 
@@ -80,7 +141,7 @@ Bungalow.prototype.loadView = function (viewId, parameters, section) {
         view.setAttribute('src', 'apps/' + viewId + '/index.html');
         view.onload = function () {
             view.contentWindow.postMessage({'action': 'navigate', 'arguments': parameters}, '*');
-            view.contentWindow.location.hash = section;
+            view.contentWindow.postMessage({'action': 'navigate', 'uri': '#' + section}, '*');
         }
         $('#viewstack').append(view);
         this.resizeApps();

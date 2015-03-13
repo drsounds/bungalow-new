@@ -7,15 +7,19 @@
             @import url('../themes/main.css');
             :host {
                 background-color: #770000;
-                color: #ffeeee;
+                color: #ffaa00;
                 height: 20pt;
                 padding:0pt;
-                line-height: 5pt;
+                line-height: 20pt;
                 font-size: 10pt;
+                padding-left: 10pt;
             }    
+            :host p {
+                line-height: 0pt;
+            }
         </style>
         <div id="host">
-            <p><i class="fa fa-flag"></i> <content select="description"></content></p>
+            <i class="fa fa-flag"></i> <content select="description"></content>
         </div>                
     </template>
     <script>

@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<polymer-element name="bungalow-header" attributes="icon,type,constructor,followers">
+<polymer-element name="bungalow-header" attributes="icon,type,constructor,followers,action">
 
     <template>
         <style>
@@ -11,8 +11,8 @@
         </style>
         <table class="bungalow-header" width="100%" height="250px">
             <tr>
-                <td width="210px" style="padding: 3pt">
-                    <div class="cover">
+                <td width="{{imagesize}}px" style="padding: 3pt">
+                    <div class="cover" style="width: {{imagesize}}px; height: {{imagesize}}px">
                         <i id="cicon" class="fa fa-{{icon}}"></i>
                     </div>
                 </td>
@@ -27,7 +27,7 @@
                         </tr>
                         <tr>
                             <td valign="bottom">
-                                <div class="toolbar"><a class="btn btn-default btn-primary"><i class="fa fa-play"></i> Play</a> <a class="btn btn-default">Share</a></div>
+                                <div class="toolbar"><a class="btn btn-default btn-primary"><i class="fa fa-play"></i> {{action}}</a> <a class="btn btn-default" style="padding-left: 7pt; padding-right: 7pt">...</a></div>
                                 <div style="float: right; text-align: right">
                                     <small>Followers:<br> {{followers}}</small>
                                 </div>
@@ -38,14 +38,15 @@
                 </td>
             </tr>
         </table>
-        <hr>
-        <p>Created by <a data-uri="{{author.uri}}"></a></p>
+        
                 
     </template>
     <script>
     Polymer({
         icon: 'cube',
-        followers: '0'
+        followers: '0',
+        'action': 'play',
+        'imagesize': 210
     });
     </script>
 </polymer-element>
